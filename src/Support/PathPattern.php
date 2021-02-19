@@ -66,7 +66,7 @@ class PathPattern
     public function setPattern(string $pattern): self
     {
         $pattern = str_replace('\\', '/', $pattern);
-        if (!preg_match("/^(\/?.+\/)(?:(.+)(\.[^.]+))?$/", $pattern, $matches)) {
+        if (!preg_match("/^(\/?.+\/)?(?:(.+)(\.[^.]+))?$/", $pattern, $matches)) {
             throw PathPatternException::invalidPattern($pattern);
         }
 
@@ -81,15 +81,26 @@ class PathPattern
         $this->extension = $extension;
 
         // these are the default "match" regexes - used when detecting if a file is relevant
-        $this->matchPathRegex = "/^.*\/{$dir}\/{$baseFilename}{$extension}$/";
+        $this->matchPathRegex = $dir
+            ? "/^.*\/{$dir}\/{$baseFilename}{$extension}$/"
+            : "/^.*\/{$baseFilename}{$extension}$/";
         $this->matchFqcnRegex = null;
         $this->matchClasses = [null];
 
         // these are the default regexes used to "pick" values from paths
         $this->pickFullPathRegex = null;
-        $this->pickAppRegex = "/^(.*)\/{$dir}\/{$baseFilename}{$extension}$/";
-        $this->pickNameRegex = "/^.*\/{$dir}\/({$baseFilename}){$extension}$/";
-        $this->pickStarsAndAfterRegex = "/^.*\/{$dirBeforeStar}\/(.*)$/";
+        $this->pickAppRegex = $dir
+            ? "/^(.*)\/{$dir}\/{$baseFilename}{$extension}$/"
+            : "/^(.*)\/{$baseFilename}{$extension}$/";
+        $this->pickNameRegex = $dir
+            ? "/^.*\/{$dir}\/({$baseFilename}){$extension}$/"
+            : "/^.*\/({$baseFilename}){$extension}$/";
+        $this->pickStarsAndAfterRegex = $dirBeforeStar
+            ? "/^.*\/{$dirBeforeStar}\/(.*)$/"
+            : "/^.*\/(.*)$/";
+        $this->pickStarsAndAfterRegex = $dirBeforeStar
+            ? "/^.*\/{$dirBeforeStar}\/(.*)$/"
+            : "/^.*\/(.*)$/";
 
         return $this;
     }
