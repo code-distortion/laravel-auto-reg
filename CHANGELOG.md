@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 
+## [0.1.1] - 2021-02-19
+
+### Added
+- Added preliminary support for pattern matching when there is no directory component
+
+
+
 ## [0.1.0] - 2021-01-09
 
 ### Added
