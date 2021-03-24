@@ -104,10 +104,15 @@ class FileSystem
                         }
                     }
 
-                    if ($tokens[$i][0] === T_CLASS) {
-                        for ($j = $i + 1; $j < count($tokens); $j++) {
-                            if ($tokens[$j] === '{') {
-                                $class = $tokens[$i + 2][1];
+                    if (!mb_strlen($class)) {
+                        if ($tokens[$i][0] === T_CLASS) {
+                            if (@$tokens[$i - 1][0] !== T_PAAMAYIM_NEKUDOTAYIM) { // not part of "XYZ::class"
+                                for ($j = $i + 1; $j < count($tokens); $j++) {
+                                    if ($tokens[$j] === '{') {
+                                        $class = $tokens[$i + 2][1];
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
