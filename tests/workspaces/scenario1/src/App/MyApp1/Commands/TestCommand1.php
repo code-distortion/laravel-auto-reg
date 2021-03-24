@@ -24,5 +24,9 @@ class TestCommand1 extends Command
     public function handle()
     {
         $this->line('TEST COMMAND 1');
+
+        TestCommand1::class;
+        if (true) {
+        }
     }
 }
