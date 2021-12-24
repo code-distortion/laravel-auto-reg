@@ -39,7 +39,7 @@ class Detect
     /** @var boolean Whether the data was loaded from cache or not. */
     private bool $wasLoadedFromCache = false;
 
-    /** @var Collection<FileList> An internal cache of the files in the "source-dir" dirs and their fqcn's. */
+    /** @var Collection<FileList> An internal cache of the files in the "source-dir" dirs and their FQCN's. */
     private Collection $allFiles;
 
 
@@ -148,7 +148,7 @@ class Detect
     /**
      * Resolve the data fresh.
      *
-     * @param boolean $needMeta Should the meta data be generated?.
+     * @param boolean $needMeta Should the meta-data be generated?.
      * @return void
      */
     public function loadFresh(bool $needMeta): void
@@ -253,7 +253,7 @@ class Detect
     }
 
     /**
-     * Get the list of files and their fqcn (when available).
+     * Get the list of files and their FQCN (when available).
      *
      * The list is cached in PHP memory so the files are only inspected once.
      *
@@ -265,7 +265,7 @@ class Detect
     }
 
     /**
-     * Build the list of files and their fqcn (when available).
+     * Build the list of files and their FQCN (when available).
      *
      * @return Collection<FileList>
      */

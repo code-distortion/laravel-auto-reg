@@ -21,7 +21,7 @@ class CommandClassResolver extends ResolverAbstract
 
 
     /**
-     * Add this file's meta data to the list.
+     * Add this file's meta-data to the list.
      *
      * @param MatchedFileDTO $matchedFileDTO Information about the file.
      * @return void

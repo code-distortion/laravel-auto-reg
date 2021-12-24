@@ -5,7 +5,7 @@ namespace CodeDistortion\LaravelAutoReg\Support;
 use Illuminate\Support\Collection;
 
 /**
- * Meta data about a matched file.
+ * Meta-data about a matched file.
  */
 class MatchedFileDTO
 {

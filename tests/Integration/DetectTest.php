@@ -216,7 +216,7 @@ class DetectTest extends LaravelTestCase
                     'config' => [],
                 ],
             ],
-            'ignore service-provider fqcn' => [
+            'ignore service-provider FQCN' => [
                 'replaceConfig' => [
                     'ignore' => [
                         '\\CodeDistortion\\LaravelAutoReg\\Tests\\Scenario1App\\MyApp1\\Providers\\TestServiceProvider1',
@@ -620,7 +620,7 @@ class DetectTest extends LaravelTestCase
      *
      * @test
      * @dataProvider metaLoadingDataProvider
-     * @param boolean $needMeta Should the meta data be generated / loaded from cache?.
+     * @param boolean $needMeta Should the meta-data be generated / loaded from cache?.
      * @return void
      */
     public function test_meta_loading(bool $needMeta): void

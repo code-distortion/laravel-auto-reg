@@ -22,7 +22,7 @@ class LivewireComponentResolver extends ResolverAbstract
     /** @var array<int, string|null> The classes that files must match (when not empty. null means "no class"). */
     protected array $matchClasses = [Component::class];
 
-    /** @var boolean Is this allowd to match files that aren't in an app? */
+    /** @var boolean Is this allowd to match files that aren't in an app?. */
     protected bool $allowNullApp = false;
 
 
@@ -40,7 +40,7 @@ class LivewireComponentResolver extends ResolverAbstract
 
 
     /**
-     * Add this file's meta data to the list.
+     * Add this file's meta-data to the list.
      *
      * @param MatchedFileDTO $matchedFileDTO Information about the file.
      * @return void

@@ -64,7 +64,7 @@ class LaravelAutoRegServiceProvider extends ServiceProvider
 
         // don't register resources when creating or clearing the cache
         // in case the resources that were cached are invalid in some way
-        // (eg. if a file doesn't exist any more)
+        // (e.g. if a file doesn't exist any more)
         if (Environment::runningAutoRegCacheCommand()) {
             return;
         }
@@ -117,7 +117,7 @@ class LaravelAutoRegServiceProvider extends ServiceProvider
         $this->mergeConfigFrom($configPath, Settings::LARAVEL_CONFIG_NAME);
 
         // allow the default config to be published
-        if ((!$this->app->environment('testing')) && ($this->app->runningInConsole())) {
+        if ((!$this->app->runningUnitTests()) && ($this->app->runningInConsole())) {
 
             $this->publishes(
                 [$configPath => config_path(Settings::LARAVEL_CONFIG_NAME . '.php')],

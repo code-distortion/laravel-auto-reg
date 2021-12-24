@@ -28,7 +28,7 @@ class PathPattern
     /** @var string|null The regex that the file's path must match to be valid. */
     protected ?string $matchPathRegex;
 
-    /** @var string|null The regex that the file's class fqcn must match to be valid. */
+    /** @var string|null The regex that the file's class FQCN must match to be valid. */
     protected ?string $matchFqcnRegex;
 
     /** @var array<int, string|null> The classes that files must match when not empty (null means "no class"). */
@@ -160,7 +160,7 @@ class PathPattern
 //    }
 
 //    /**
-//     * Set the match-fqcn regex.
+//     * Set the match-FQCN regex.
 //     *
 //     * @param string|null $matchFqcnRegex The regex to use.
 //     * @return void
@@ -291,7 +291,7 @@ class PathPattern
     }
 
     /**
-     * Condense the list of files if needed (eg. remove the filenames and pick out the directory for views).
+     * Condense the list of files if needed (e.g. remove the filenames and pick out the directory for views).
      *
      * @param Collection|BasicFile[] $paths The list of files.
      * @return Collection<array<BasicFile[]>>
@@ -309,7 +309,7 @@ class PathPattern
     }
 
     /**
-     * Condense the list of files if needed (eg. remove the filenames and pick out the directory for views).
+     * Condense the list of files if needed (e.g. remove the filenames and pick out the directory for views).
      *
      * @param Collection|BasicFile[] $paths The list of files.
      * @return Collection|BasicFile[]
@@ -376,9 +376,9 @@ class PathPattern
     }
 
     /**
-     * Check if a class fqcn matches the matchFqcnRegex.
+     * Check if a class FQCN matches the matchFqcnRegex.
      *
-     * @param string|null $fqcn The class fqcn to check.
+     * @param string|null $fqcn The class FQCN to check.
      * @return boolean
      */
     private function matchFqcn(?string $fqcn): bool
@@ -395,9 +395,9 @@ class PathPattern
     }
 
     /**
-     * Check if a class fqcn is in the list of valid classes.
+     * Check if a class FQCN is in the list of valid classes.
      *
-     * @param string|null $fqcn The class fqcn to check.
+     * @param string|null $fqcn The class FQCN to check.
      * @return boolean
      */
     private function matchClass(?string $fqcn): bool
@@ -460,10 +460,10 @@ class PathPattern
 
     /**
      * The "pickFullPath" method may remove part of the end of the directory structure.
-     * This also removes that from the fqcn.
+     * This also removes that from the FQCN.
      *
      * @param string      $path The path that the class exists in.
-     * @param string|null $fqcn The class fqcn.
+     * @param string|null $fqcn The class FQCN.
      * @return string|null
      */
     private function pickFqcn(string $path, ?string $fqcn): ?string

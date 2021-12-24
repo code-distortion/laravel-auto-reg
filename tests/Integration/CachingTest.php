@@ -198,7 +198,7 @@ class CachingTest extends LaravelTestCase
      * @test
      * @dataProvider cacheFileRemovalDataProvider
      * @param array<int, string> $removePathMethods  The file/s to remove.
-     * @param boolean            $needMeta           Should the meta data be generated / loaded from cache?.
+     * @param boolean            $needMeta           Should the meta-data be generated / loaded from cache?.
      * @param boolean            $wasLoadedFromCache Should the cache have been successfully loaded from the second
      *                                               time?.
      * @param boolean            $willRebuildCache   Will the cache be rebuilt afterwards?.

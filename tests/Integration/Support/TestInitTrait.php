@@ -53,7 +53,7 @@ trait TestInitTrait
      *
      * @param string               $scenario                The name of the scenario to use.
      * @param array<string, mixed> $replaceConfig           Values to replace the config data with.
-     * @param boolean              $needMeta                Should the meta data be generated / loaded from cache?.
+     * @param boolean              $needMeta                Should the meta-data be generated / loaded from cache?.
      * @param boolean              $removeExistingCacheFile Should the cache file be removed if it exists?.
      * @return mixed[]
      */

@@ -20,7 +20,7 @@ class Environment
     /**
      * Detected if the "auto-reg:list" command is being run.
      *
-     * NOTE: This isn't perfect. Commands can be run by typing less (eg. "php artisan a:l") and this won't pick up
+     * NOTE: This isn't perfect. Commands can be run by typing less (e.g. "php artisan a:l") and this won't pick up
      * those cases. The command hasn't been picked by the time this is needed so checking argv seems like the best way
      * to guess.
      *
@@ -36,7 +36,7 @@ class Environment
     /**
      * Detected if "auto-reg:cache" or "auto-reg:clear" are being run.
      *
-     * NOTE: This isn't perfect. Commands can be run by typing less (eg. "php artisan a:c") and this won't pick up
+     * NOTE: This isn't perfect. Commands can be run by typing less (e.g. "php artisan a:c") and this won't pick up
      * those cases. The command hasn't been picked by the time this is needed so checking argv seems like the best way
      * to guess.
      *

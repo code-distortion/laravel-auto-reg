@@ -11,7 +11,6 @@ use CodeDistortion\LaravelAutoReg\Support\StringSupport;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
-use League\CommonMark\Inline\Parser\BangParser;
 
 /**
  * Picks out view-component-class files.
@@ -24,7 +23,7 @@ class ViewComponentResolver extends ResolverAbstract
     /** @var array<int, string|null> The classes that files must match (when not empty. null means "no class"). */
     protected array $matchClasses = [Component::class];
 
-    /** @var boolean Is this allowd to match files that aren't in an app? */
+    /** @var boolean Is this allowed to match files that aren't in an app?. */
     protected bool $allowNullApp = false;
 
 
@@ -51,7 +50,7 @@ class ViewComponentResolver extends ResolverAbstract
 
 
     /**
-     * Add this file's meta data to the list.
+     * Add this file's meta-data to the list.
      *
      * @param MatchedFileDTO $matchedFileDTO Information about the file.
      * @return void

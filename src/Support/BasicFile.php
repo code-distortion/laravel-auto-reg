@@ -19,7 +19,7 @@ class BasicFile
     /** @var string|null The "**" part of the path. */
     public ?string $starsAndAfterPath;
 
-    /** @var string|null The class fqcn (if relevant). */
+    /** @var string|null The class FQCN (if relevant). */
     public ?string $fqcn;
 
     /**
@@ -29,7 +29,7 @@ class BasicFile
      * @param string      $localPath    The path within the project.
      * @param string      $appPath      The path within the app.
      * @param string|null $wildcardPath The "**" part of the path.
-     * @param string|null $fqcn         The class fqcn (if relevant).
+     * @param string|null $fqcn         The class FQCN (if relevant).
      */
     public function __construct(
         string $path,

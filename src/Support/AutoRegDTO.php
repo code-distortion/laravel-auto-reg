@@ -13,7 +13,7 @@ use Throwable;
  */
 class AutoRegDTO
 {
-    /** @var string The project's base directory (ie. Laravel's base_path()). */
+    /** @var string The project's base directory (i.e. Laravel's base_path()). */
     public string $laravelBaseDir;
 
     /** @var mixed[] The config data to use. */
@@ -37,7 +37,7 @@ class AutoRegDTO
     /**
      * @param string  $laravelBaseDir The project's base directory.
      * @param mixed[] $configData     The config data to use.
-     * @param boolean $needMeta       Should the meta data be generated / loaded from cache?.
+     * @param boolean $needMeta       Should the meta-data be generated / loaded from cache?.
      */
     public function __construct(string $laravelBaseDir, array $configData, bool $needMeta)
     {

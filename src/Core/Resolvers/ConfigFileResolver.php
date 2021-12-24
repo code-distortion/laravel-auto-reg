@@ -23,7 +23,7 @@ class ConfigFileResolver extends ResolverAbstract
     /** @var boolean Include the path in the config name. */
     private bool $useAppName = true;
 
-    /** @var boolean Is this allowd to match files that aren't in an app? */
+    /** @var boolean Is this allowed to match files that aren't in an app?. */
     protected bool $allowNullApp = true;
 
 
@@ -44,7 +44,7 @@ class ConfigFileResolver extends ResolverAbstract
 
 
     /**
-     * Add this file's meta data to the list.
+     * Add this file's meta-data to the list.
      *
      * @param MatchedFileDTO $matchedFileDTO Information about the file.
      * @return void

@@ -22,7 +22,7 @@ abstract class ResolverAbstract
     /** @var boolean Is more than one match allowed per app? */
     protected bool $canHaveMultipleMatchesPerApp = true;
 
-    /** @var boolean Is this allowd to match files that aren't in an app? */
+    /** @var boolean Is this allowed to match files that aren't in an app?. */
     protected bool $allowNullApp = true;
 
 
@@ -139,7 +139,7 @@ abstract class ResolverAbstract
      * @param string[]              $detectedApps The list of apps that have already been identified.
      *                                            (if the app can't be identified for this type of file, these
      *                                            will be checked against to help resolve it).
-     * @param boolean               $needMeta     Should the meta data be generated?.
+     * @param boolean               $needMeta     Should the meta-data be generated?.
      * @return void
      */
     public function resolve(Collection $allFilesList, array $detectedApps, bool $needMeta): void
@@ -283,7 +283,7 @@ abstract class ResolverAbstract
 
 
     /**
-     * Add this file's meta data to the list.
+     * Add this file's meta-data to the list.
      *
      * @param MatchedFileDTO $matchedFileDTO Information about the file.
      * @return void

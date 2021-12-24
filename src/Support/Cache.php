@@ -52,7 +52,7 @@ class Cache
      * @param IlluminateFS $files         Gives access to the filesystem.
      * @param string       $mainCachePath The path to the "main" cache file.
      * @param string       $metaCachePath The path to the "meta" cache file.
-     * @param boolean      $needMeta      Should the meta data be generated / loaded from cache?.
+     * @param boolean      $needMeta      Should the meta-data be generated / loaded from cache?.
      */
     public function __construct(IlluminateFS $files, string $mainCachePath, string $metaCachePath, bool $needMeta)
     {

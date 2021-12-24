@@ -25,7 +25,7 @@ class ViewDirectoryResolver extends ResolverAbstract
     /** @var boolean Is more than one match allowed per app? */
     protected bool $canHaveMultipleMatchesPerApp = false;
 
-    /** @var boolean Is this allowd to match files that aren't in an app? */
+    /** @var boolean Is this allowed to match files that aren't in an app?. */
     protected bool $allowNullApp = false;
 
 
@@ -51,7 +51,7 @@ class ViewDirectoryResolver extends ResolverAbstract
 
 
     /**
-     * Add this file's meta data to the list.
+     * Add this file's meta-data to the list.
      *
      * @param MatchedFileDTO $matchedFileDTO Information about the file.
      * @return void

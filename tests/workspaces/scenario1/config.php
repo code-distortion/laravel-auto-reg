@@ -111,7 +111,7 @@ return [
      | This is the list of things to ignore - they won't be registered. Paths
      | are relative to the base of your project.
      |
-     | eg. [
+     | e.g. [
      |     '/src/Apps/Dashboard/Providers/MyProvider.php', // ignore a file
      |     '/src/Apps/Dashboard/Providers',                // ignore a directory
      |     '\Apps\Dashboard\Providers\MyProvider',         // ignore a class
