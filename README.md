@@ -340,11 +340,11 @@ The broadcast type is also disabled by default in Laravel Auto-Reg, but you can 
 
 Blade directories are registered, with the addition of the *app's* name being added as a prefix.
 
-eg. The `src/App/Home/Resources/Views/blog.php` file would be available to you using `view('home::blog')`.
+e.g. The `src/App/Home/Resources/Views/blog.php` file would be available to you using `view('home::blog')`.
 
 Anonymous Blade components are also available if you put them in the `components` directory.
 
-eg. The `src/App/Home/Resources/Views/components/button.php` file would be available to you using `<x-home::button />`.
+e.g. The `src/App/Home/Resources/Views/components/button.php` file would be available to you using `<x-home::button />`.
 
 ***Note:*** If you find that a blade template isn't picked up by another one, you may need to re-save the parent template file to trigger a change.
 
@@ -358,7 +358,7 @@ Commands classes (that extend `Illuminate\View\Component`) are picked up and reg
 
 Like view directories above, the *app's* name is added as a prefix.
 
-eg. The `src/App/Home/Resources/ViewComponents/Button.php` file would be available to you using `<x-home::button />`.
+e.g. The `src/App/Home/Resources/ViewComponents/Button.php` file would be available to you using `<x-home::button />`.
 
 ***Note:*** If you find that a blade template isn't picked up by another one, you may need to re-save the parent template file to trigger a change.
 
@@ -372,7 +372,7 @@ If you use [Laravel Livewire](https://laravel-livewire.com/), your Livewire comp
 
 The *app's* name is added as a prefix.
 
-eg. The `src/App/Home/Resources/Livewire/button.php` file would be available to you using `<livewire:home::button />`.
+e.g. The `src/App/Home/Resources/Livewire/button.php` file would be available to you using `<livewire:home::button />`.
 
 
 
@@ -383,7 +383,7 @@ eg. The `src/App/Home/Resources/Livewire/button.php` file would be available to 
 
 Translation directories are registered, with the addition of the *app's* name being added as a prefix.
 
-eg. The `src/App/Home/Resources/Lang/en/blog.php` file would be available to you using `__('home::blog.success')`.
+e.g. The `src/App/Home/Resources/Lang/en/blog.php` file would be available to you using `__('home::blog.success')`.
 
 
 
@@ -404,10 +404,10 @@ This lists the resources that are registered.
 
 > You can narrow down the results by:
 >
-> - Passing in a specific app. eg. `php artisan auto-reg:list --app=home`
-> - Passing in a specific file type. eg. `php artisan auto-reg:list --type=config`
+> - Passing in a specific app. e.g. `php artisan auto-reg:list --app=home`
+> - Passing in a specific file type. e.g. `php artisan auto-reg:list --type=config`
 
-> You can also specify how you'd like the results to be grouped. eg. `php artisan auto-reg:list --group-by=type`
+> You can also specify how you'd like the results to be grouped. e.g. `php artisan auto-reg:list --group-by=type`
 
 
 
