@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 
+## [0.1.4] - 2022-01-01
+
+### Fixed
+- Changed dependency list to refer to specific versions of PHP - to prevent installation on platforms with future versions of PHP before being tested
+
+
+
 ## [0.1.3] - 2021-12-25
 
 ### Added
