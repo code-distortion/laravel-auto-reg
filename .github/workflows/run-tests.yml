@@ -1,0 +1,153 @@
+name: run-tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  php81:
+
+    name: ${{ matrix.os }} - PHP ${{ matrix.php }} - TestBench ${{ matrix.testbench }} - Livewire ${{ matrix.livewire }} - ${{ matrix.dependency-prefer }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        php: [8.1]
+        phpunit: [^9.5.10]
+        testbench: [^6.22]
+        livewire: [^2.3.3]
+        dependency-prefer: [prefer-stable, prefer-lowest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: fileinfo, mbstring
+          coverage: none
+
+      # find out composer's cache directory on the current os - for the "Cache dependencies (composer)" step below
+      - name: Determine composer's cache directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies (composer)
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: php-${{ matrix.php }}-testbench-${{ matrix.testbench }}-livewire-${{ matrix.livewire }}-os-${{ matrix.os }}-dependency-prefer-${{ matrix.dependency-prefer }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install dependencies (composer)
+        run: |
+          composer remove "illuminate/support" --no-interaction --no-update
+          composer require "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}" "livewire/livewire:${{ matrix.livewire }}" --dev --no-interaction --no-update
+          composer update --${{ matrix.dependency-prefer }} --prefer-dist --no-interaction
+
+      - name: Execute tests
+        run: vendor/bin/phpunit
+
+  php80:
+
+    name: ${{ matrix.os }} - PHP ${{ matrix.php }} - TestBench ${{ matrix.testbench }} - Livewire ${{ matrix.livewire }} - ${{ matrix.dependency-prefer }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        php: ["8.0"]
+        phpunit: ["^8.5 | ^9.0"]
+        testbench: [^6.0]
+        livewire: [^2.3.3]
+        dependency-prefer: [prefer-stable, prefer-lowest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: fileinfo, mbstring
+          coverage: none
+
+      # find out composer's cache directory on the current os - for the "Cache dependencies (composer)" step below
+      - name: Determine composer's cache directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies (composer)
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: php-${{ matrix.php }}-testbench-${{ matrix.testbench }}-livewire-${{ matrix.livewire }}-os-${{ matrix.os }}-dependency-prefer-${{ matrix.dependency-prefer }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install dependencies (composer)
+        run: |
+          composer remove "illuminate/support" --no-interaction --no-update
+          composer require "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}" "livewire/livewire:${{ matrix.livewire }}" --dev --no-interaction --no-update
+          composer update --${{ matrix.dependency-prefer }} --prefer-dist --no-interaction
+
+      - name: Execute tests
+        run: vendor/bin/phpunit
+
+  php74:
+
+    name: ${{ matrix.os }} - PHP ${{ matrix.php }} - TestBench ${{ matrix.testbench }} - Livewire ${{ matrix.livewire }} - ${{ matrix.dependency-prefer }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        php: [7.4]
+        phpunit: ["^8.5 | ^9.0"]
+        testbench: [^6.0]
+        livewire: [^2.0, ^1.0]
+        dependency-prefer: [prefer-stable, prefer-lowest]
+        exclude:
+          - os: windows-latest
+            livewire: ^1.0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: fileinfo, mbstring
+          coverage: none
+
+      # find out composer's cache directory on the current os - for the "Cache dependencies (composer)" step below
+      - name: Determine composer's cache directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies (composer)
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: php-${{ matrix.php }}-testbench-${{ matrix.testbench }}-livewire-${{ matrix.livewire }}-os-${{ matrix.os }}-dependency-prefer-${{ matrix.dependency-prefer }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install dependencies (composer)
+        run: |
+          composer remove "illuminate/support" --no-interaction --no-update
+          composer require "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}" "livewire/livewire:${{ matrix.livewire }}" --dev --no-interaction --no-update
+          composer update --${{ matrix.dependency-prefer }} --prefer-dist --no-interaction
+
+      - name: Execute tests
+        run: vendor/bin/phpunit
