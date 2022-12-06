@@ -31,7 +31,7 @@
         "php": "7.4.* | 8.0.* | 8.1.*",
         "ext-fileinfo": "*",
         "ext-mbstring": "*",
-        "illuminate/support": "^8.0"
+        "illuminate/support": "^8.0 | ^9.0"
     },
     "require-dev": {
         "livewire/livewire": "^1.0 | ^2.0",
