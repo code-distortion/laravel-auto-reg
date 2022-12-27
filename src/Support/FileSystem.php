@@ -104,7 +104,7 @@ class FileSystem
                         }
                     }
 
-                    if (!mb_strlen($class)) {
+                    if ((is_null($class)) || (!mb_strlen($class))) {
                         if ($tokens[$i][0] === T_CLASS) {
                             if (@$tokens[$i - 1][0] !== T_PAAMAYIM_NEKUDOTAYIM) { // not part of "XYZ::class"
                                 for ($j = $i + 1; $j < count($tokens); $j++) {
