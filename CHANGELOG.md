@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 
 
+## [0.1.8] - 2022-12-27
+
+### Fixed
+- Fixed code that was throwing a deprecation error in PHP 8.2 ("mb_strlen(): Passing null to parameter #1 ($string) of type string is deprecated")
+
+
+
 ## [0.1.7] - 2022-12-20
 
 ### Added
