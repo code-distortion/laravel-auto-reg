@@ -2,10 +2,10 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/code-distortion/laravel-auto-reg.svg?style=flat-square)](https://packagist.org/packages/code-distortion/laravel-auto-reg)
 ![PHP Version](https://img.shields.io/badge/PHP-7.4%20to%208.2-blue?style=flat-square)
-![Laravel](https://img.shields.io/badge/laravel-8%20%26%209-blue?style=flat-square)
+![Laravel](https://img.shields.io/badge/laravel-8%20to%2010-blue?style=flat-square)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/code-distortion/laravel-auto-reg/run-tests.yml?branch=master&style=flat-square)](https://github.com/code-distortion/laravel-auto-reg/actions)
 [![Buy The World a Tree](https://img.shields.io/badge/treeware-%F0%9F%8C%B3-lightgreen?style=flat-square)](https://plant.treeware.earth/code-distortion/laravel-auto-reg)
-[![Contributor Covenant](https://img.shields.io/badge/contributor%20covenant-v2.0%20adopted-ff69b4.svg?style=flat-square)](CODE_OF_CONDUCT.md)
+[![Contributor Covenant](https://img.shields.io/badge/contributor%20covenant-v2.1%20adopted-ff69b4.svg?style=flat-square)](.github/CODE_OF_CONDUCT.md)
 
 ***code-distortion/laravel-auto-reg*** is a [Laravel](https://github.com/laravel/laravel) package that registers your service-providers, configs, commands, routes, broadcast channels, migrations, blade-templates and translations etc for you, in a project with a non-standard directory structure.
 
@@ -56,7 +56,7 @@ By default, Laravel is designed to consume your resources from certain places. F
 
 If you change the structure of your codebase you'll need to tell Laravel where they are. This is actually quite normal in the case of packages that have their own resources.
 
-To do this within *your* own Laravel project you would use the tools [Laravel makes available](https://laravel.com/docs/8.x/packages) for packages to register their package's resources.
+To do this within *your* own Laravel project you would use the tools [Laravel makes available](https://laravel.com/docs/10.x/packages) for packages to register their package's resources.
 
 The aim of Laravel Auto-Reg is to allow you to structure your Laravel project differently to Laravel's default, without needing to manage resource registration yourself.
 
@@ -475,13 +475,13 @@ This package is [Treeware](https://treeware.earth). If you use it in production,
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
 
 
 ### Code of Conduct
 
-Please see [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
+Please see [CODE_OF_CONDUCT](.github/CODE_OF_CONDUCT.md) for details.
 
 
 
