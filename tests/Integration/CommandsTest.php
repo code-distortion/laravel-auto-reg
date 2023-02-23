@@ -8,7 +8,6 @@ use CodeDistortion\LaravelAutoReg\Support\Settings;
 use CodeDistortion\LaravelAutoReg\Tests\Integration\Support\TestInitTrait;
 use CodeDistortion\LaravelAutoReg\Tests\LaravelTestCase;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 
 /**
  * Test the Laravel Auto-Reg commands.
@@ -27,15 +26,15 @@ class CommandsTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_command_list(): void
+    public static function test_command_list(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
+        static::runServiceProvider($detect);
 
         Artisan::call('auto-reg:list');
-        $this->assertSame(
+        static::assertSame(
             "
 Laravel Auto-Reg cache status: NOT CACHED
 
@@ -80,15 +79,15 @@ Source: /src/App
      * @test
      * @return void
      */
-    public function test_command_list_when_empty(): void
+    public static function test_command_list_when_empty(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario_empty');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario_empty');
+        static::runServiceProvider($detect);
 
         Artisan::call('auto-reg:list');
-        $this->assertSame(
+        static::assertSame(
             "No resources were detected.
 ",
             Artisan::output()
@@ -103,24 +102,24 @@ Source: /src/App
      * @test
      * @return void
      */
-    public function test_command_cache(): void
+    public static function test_command_cache(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
+        static::runServiceProvider($detect);
 
-        $this->assertFalse(file_exists($detect->getMainCachePath()));
+        static::assertFalse(file_exists($detect->getMainCachePath()));
 
         Artisan::call('auto-reg:cache');
-        $this->assertSame(
+        static::assertSame(
             "Auto-Reg cache cleared!
 Auto-Reg cached successfully!
 ",
             Artisan::output()
         );
 
-        $this->assertFileExists($detect->getMainCachePath());
+        static::assertFileExists($detect->getMainCachePath());
     }
 
 
@@ -131,17 +130,17 @@ Auto-Reg cached successfully!
      * @test
      * @return void
      */
-    public function test_command_cache_when_empty(): void
+    public static function test_command_cache_when_empty(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario_empty');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario_empty');
+        static::runServiceProvider($detect);
 
-        $this->assertFalse(file_exists($detect->getMainCachePath()));
+        static::assertFalse(file_exists($detect->getMainCachePath()));
 
         Artisan::call('auto-reg:cache');
-        $this->assertSame(
+        static::assertSame(
             "Auto-Reg cache cleared!
 No resources were detected.
 Auto-Reg cached successfully!
@@ -149,7 +148,7 @@ Auto-Reg cached successfully!
             Artisan::output()
         );
 
-        $this->assertFileExists($detect->getMainCachePath());
+        static::assertFileExists($detect->getMainCachePath());
     }
 
 
@@ -160,26 +159,26 @@ Auto-Reg cached successfully!
      * @test
      * @return void
      */
-    public function test_command_clear(): void
+    public static function test_command_clear(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
+        static::runServiceProvider($detect);
 
-        $this->assertFalse(file_exists($detect->getMainCachePath()));
+        static::assertFalse(file_exists($detect->getMainCachePath()));
         $detect->loadFresh(true);
         $detect->saveCache();
-        $this->assertFileExists($detect->getMainCachePath());
+        static::assertFileExists($detect->getMainCachePath());
 
         Artisan::call('auto-reg:clear');
-        $this->assertSame(
+        static::assertSame(
             "Auto-Reg cache cleared!
 ",
             Artisan::output()
         );
 
-        $this->assertFalse(file_exists($detect->getMainCachePath()));
+        static::assertFalse(file_exists($detect->getMainCachePath()));
     }
 
 
@@ -190,16 +189,16 @@ Auto-Reg cached successfully!
      * @test
      * @return void
      */
-    public function test_command_stats(): void
+    public static function test_command_stats(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
+        static::runServiceProvider($detect);
 
         Artisan::call('auto-reg:stats');
         $output = preg_replace('/[0-9]+\.[0-9]{3}/', 'x.xxx', Artisan::output());
-        $this->assertSame(
+        static::assertSame(
             "
 Laravel Auto-Reg cache status: NOT CACHED
 
@@ -234,7 +233,7 @@ Laravel Auto-Reg cache status: NOT CACHED
      *
      * @return mixed[]
      */
-    public function enabledTypesDataProvider(): array
+    public static function enabledTypesDataProvider(): array
     {
         return collect(Settings::TYPE_TO_CONFIG_NAME_MAP)->map(fn($configName, $name) => [$name, $configName])->all();
     }
@@ -248,7 +247,7 @@ Laravel Auto-Reg cache status: NOT CACHED
      * @param string $configName The name of the resource in the config.
      * @return void
      */
-    public function test_that_resources_are_disabled(string $name, string $configName): void
+    public static function test_that_resources_are_disabled(string $name, string $configName): void
     {
         $replaceConfig = [
             'enabled' => (array) array_combine(
@@ -260,8 +259,8 @@ Laravel Auto-Reg cache status: NOT CACHED
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
+        static::runServiceProvider($detect);
 
         Artisan::call('auto-reg:stats');
 
@@ -278,6 +277,6 @@ Laravel Auto-Reg cache status: NOT CACHED
             ->flatten(1)
             ->toArray();
 
-        $this->assertSame(['register ' . $name], $output);
+        static::assertSame(['register ' . $name], $output);
     }
 }

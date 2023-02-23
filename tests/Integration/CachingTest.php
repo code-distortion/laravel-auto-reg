@@ -27,33 +27,33 @@ class CachingTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_that_cache_is_created(): void
+    public static function test_that_cache_is_created(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
+        static::runServiceProvider($detect);
 
-        $this->assertFalse($detect->wasLoadedFromCache());
-        $this->assertFalse(file_exists($detect->getMainCachePath()));
-        $this->assertFalse(file_exists($detect->getMetaCachePath()));
+        static::assertFalse($detect->wasLoadedFromCache());
+        static::assertFalse(file_exists($detect->getMainCachePath()));
+        static::assertFalse(file_exists($detect->getMetaCachePath()));
 
         $detect->loadFresh(true);
         $detect->saveCache();
 
-        $this->assertFileExists($detect->getMainCachePath());
-        $this->assertFileExists($detect->getMetaCachePath());
+        static::assertFileExists($detect->getMainCachePath());
+        static::assertFileExists($detect->getMetaCachePath());
 
 
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', [], true, false);
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', [], true, false);
+        static::runServiceProvider($detect);
 
-        $this->assertFileExists($detect->getMainCachePath());
-        $this->assertFileExists($detect->getMetaCachePath());
-        $this->assertTrue($detect->wasLoadedFromCache());
+        static::assertFileExists($detect->getMainCachePath());
+        static::assertFileExists($detect->getMetaCachePath());
+        static::assertTrue($detect->wasLoadedFromCache());
     }
 
 
@@ -63,7 +63,7 @@ class CachingTest extends LaravelTestCase
      *
      * @return array[]
      */
-    public function cacheFileReplacementDataProvider(): array
+    public static function cacheFileReplacementDataProvider(): array
     {
         return [
             'main-cache-path invalid cacheDataVersion value' => [
@@ -122,36 +122,40 @@ class CachingTest extends LaravelTestCase
      * @return void
      * @throws FileNotFoundException Thrown when a file cannot be read when checking if it has content.
      */
-    public function test_that_cache_is_fixed_when_corrupt(string $getPathMethod, string $search, string $replace): void
-    {
+    public static function test_that_cache_is_fixed_when_corrupt(
+        string $getPathMethod,
+        string $search,
+        string $replace
+    ): void {
+
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
+        static::runServiceProvider($detect);
 
-        $this->assertFalse($detect->wasLoadedFromCache());
-        $this->assertFalse(file_exists($detect->getMainCachePath()));
-        $this->assertFalse(file_exists($detect->getMetaCachePath()));
+        static::assertFalse($detect->wasLoadedFromCache());
+        static::assertFalse(file_exists($detect->getMainCachePath()));
+        static::assertFalse(file_exists($detect->getMetaCachePath()));
 
         $detect->loadFresh(true);
         $detect->saveCache();
 
-        $this->assertFileExists($detect->getMainCachePath());
-        $this->assertFileExists($detect->getMetaCachePath());
+        static::assertFileExists($detect->getMainCachePath());
+        static::assertFileExists($detect->getMetaCachePath());
 
-        $this->assertTrue($this->fileHasContent($this->$getPathMethod(), $search));
-        $this->stringReplaceFile($this->$getPathMethod(), $search, $replace);
-        $this->assertTrue($this->fileHasContent($this->$getPathMethod(), $replace));
+        static::assertTrue(static::fileHasContent(static::$getPathMethod(), $search));
+        static::stringReplaceFile(static::$getPathMethod(), $search, $replace);
+        static::assertTrue(static::fileHasContent(static::$getPathMethod(), $replace));
 
 
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', [], true, false);
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', [], true, false);
+        static::runServiceProvider($detect);
 
-        $this->assertFalse($detect->wasLoadedFromCache());
-        $this->assertTrue($this->fileHasContent($this->$getPathMethod(), $search));
+        static::assertFalse($detect->wasLoadedFromCache());
+        static::assertTrue(static::fileHasContent(static::$getPathMethod(), $search));
     }
 
 
@@ -161,7 +165,7 @@ class CachingTest extends LaravelTestCase
      *
      * @return array[]
      */
-    public function cacheFileRemovalDataProvider(): array
+    public static function cacheFileRemovalDataProvider(): array
     {
         return [
             'main-cache-path missing' => [
@@ -204,7 +208,7 @@ class CachingTest extends LaravelTestCase
      * @param boolean            $willRebuildCache   Will the cache be rebuilt afterwards?.
      * @return void
      */
-    public function test_that_cache_fixed_when_missing_files(
+    public static function test_that_cache_fixed_when_missing_files(
         array $removePathMethods,
         bool $needMeta,
         bool $wasLoadedFromCache,
@@ -213,36 +217,36 @@ class CachingTest extends LaravelTestCase
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
+        static::runServiceProvider($detect);
 
-        $this->assertFalse($detect->wasLoadedFromCache());
-        $this->assertFalse(file_exists($detect->getMainCachePath()));
-        $this->assertFalse(file_exists($detect->getMetaCachePath()));
+        static::assertFalse($detect->wasLoadedFromCache());
+        static::assertFalse(file_exists($detect->getMainCachePath()));
+        static::assertFalse(file_exists($detect->getMetaCachePath()));
 
         $detect->loadFresh(true);
         $detect->saveCache();
 
-        $this->assertFileExists($detect->getMainCachePath());
-        $this->assertFileExists($detect->getMetaCachePath());
+        static::assertFileExists($detect->getMainCachePath());
+        static::assertFileExists($detect->getMetaCachePath());
 
         foreach ($removePathMethods as $removePathMethod) {
-            $this->assertTrue(file_exists($this->$removePathMethod()));
-            $this->removeFile($this->$removePathMethod());
-            $this->assertFalse(file_exists($this->$removePathMethod()));
+            static::assertTrue(file_exists(static::$removePathMethod()));
+            static::removeFile(static::$removePathMethod());
+            static::assertFalse(file_exists(static::$removePathMethod()));
         }
 
 
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', [], $needMeta, false);
-        $this->runServiceProvider($detect);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', [], $needMeta, false);
+        static::runServiceProvider($detect);
 
-        $this->assertSame($wasLoadedFromCache, $detect->wasLoadedFromCache());
+        static::assertSame($wasLoadedFromCache, $detect->wasLoadedFromCache());
 
         foreach ($removePathMethods as $removePathMethod) {
-            $this->assertSame($willRebuildCache, file_exists($this->$removePathMethod()));
+            static::assertSame($willRebuildCache, file_exists(static::$removePathMethod()));
         }
     }
 
@@ -257,7 +261,7 @@ class CachingTest extends LaravelTestCase
      * @return void
      * @throws FileNotFoundException Thrown when a file cannot be read from.
      */
-    private function stringReplaceFile(string $path, string $search, string $replace): void
+    private static function stringReplaceFile(string $path, string $search, string $replace): void
     {
         $filesystem = new Filesystem();
         $content = str_replace($search, $replace, $filesystem->get($path, true));
@@ -272,7 +276,7 @@ class CachingTest extends LaravelTestCase
      * @return boolean
      * @throws FileNotFoundException Thrown when a file cannot be read from.
      */
-    private function fileHasContent(string $path, string $search): bool
+    private static function fileHasContent(string $path, string $search): bool
     {
         return mb_strpos((new Filesystem())->get($path, true), $search) !== false;
     }
@@ -283,7 +287,7 @@ class CachingTest extends LaravelTestCase
      * @param string|array<int, string> $path The path/s to remove.
      * @return void
      */
-    private function removeFile($path): void
+    private static function removeFile($path): void
     {
         (new Filesystem())->delete($path);
     }

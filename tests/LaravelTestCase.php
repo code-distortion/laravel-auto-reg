@@ -7,7 +7,7 @@ use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase;
 
 /**
- * The test case that unit tests extend from.
+ * The test case that Laravel tests extend from.
  */
 abstract class LaravelTestCase extends TestCase
 {

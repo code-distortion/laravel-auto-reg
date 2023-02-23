@@ -18,31 +18,31 @@ class StringSupportTest extends PHPUnitTestCase
      * @test
      * @return void
      */
-    public function test_case_conversion(): void
+    public static function test_case_conversion(): void
     {
-        $this->assertSame('abcDef.ghiJlk', StringSupport::changeCase('abcDef.ghiJlk', 'camel'));
-        $this->assertSame('AbcDef.GhiJlk', StringSupport::changeCase('abcDef.ghiJlk', 'pascal'));
-        $this->assertSame('abc-def.ghi-jlk', StringSupport::changeCase('abcDef.ghiJlk', 'kebab'));
-        $this->assertSame('abc_def.ghi_jlk', StringSupport::changeCase('abcDef.ghiJlk', 'snake'));
+        static::assertSame('abcDef.ghiJlk', StringSupport::changeCase('abcDef.ghiJlk', 'camel'));
+        static::assertSame('AbcDef.GhiJlk', StringSupport::changeCase('abcDef.ghiJlk', 'pascal'));
+        static::assertSame('abc-def.ghi-jlk', StringSupport::changeCase('abcDef.ghiJlk', 'kebab'));
+        static::assertSame('abc_def.ghi_jlk', StringSupport::changeCase('abcDef.ghiJlk', 'snake'));
 
-        $this->assertSame('abcDef.ghiJlk', StringSupport::changeCase('AbcDef.GhiJlk', 'camel'));
-        $this->assertSame('AbcDef.GhiJlk', StringSupport::changeCase('AbcDef.GhiJlk', 'pascal'));
-        $this->assertSame('abc-def.ghi-jlk', StringSupport::changeCase('AbcDef.GhiJlk', 'kebab'));
-        $this->assertSame('abc_def.ghi_jlk', StringSupport::changeCase('AbcDef.GhiJlk', 'snake'));
+        static::assertSame('abcDef.ghiJlk', StringSupport::changeCase('AbcDef.GhiJlk', 'camel'));
+        static::assertSame('AbcDef.GhiJlk', StringSupport::changeCase('AbcDef.GhiJlk', 'pascal'));
+        static::assertSame('abc-def.ghi-jlk', StringSupport::changeCase('AbcDef.GhiJlk', 'kebab'));
+        static::assertSame('abc_def.ghi_jlk', StringSupport::changeCase('AbcDef.GhiJlk', 'snake'));
 
-        $this->assertSame('abcDef.ghiJlk', StringSupport::changeCase('abc-def.ghi-jlk', 'camel'));
-        $this->assertSame('AbcDef.GhiJlk', StringSupport::changeCase('abc-def.ghi-jlk', 'pascal'));
-        $this->assertSame('abc-def.ghi-jlk', StringSupport::changeCase('abc-def.ghi-jlk', 'kebab'));
-        $this->assertSame('abc_def.ghi_jlk', StringSupport::changeCase('abc-def.ghi-jlk', 'snake'));
+        static::assertSame('abcDef.ghiJlk', StringSupport::changeCase('abc-def.ghi-jlk', 'camel'));
+        static::assertSame('AbcDef.GhiJlk', StringSupport::changeCase('abc-def.ghi-jlk', 'pascal'));
+        static::assertSame('abc-def.ghi-jlk', StringSupport::changeCase('abc-def.ghi-jlk', 'kebab'));
+        static::assertSame('abc_def.ghi_jlk', StringSupport::changeCase('abc-def.ghi-jlk', 'snake'));
 
-        $this->assertSame('abcDef.ghiJlk', StringSupport::changeCase('abc_def.ghi_jlk', 'camel'));
-        $this->assertSame('AbcDef.GhiJlk', StringSupport::changeCase('abc_def.ghi_jlk', 'pascal'));
-        $this->assertSame('abc-def.ghi-jlk', StringSupport::changeCase('abc_def.ghi_jlk', 'kebab'));
-        $this->assertSame('abc_def.ghi_jlk', StringSupport::changeCase('abc_def.ghi_jlk', 'snake'));
+        static::assertSame('abcDef.ghiJlk', StringSupport::changeCase('abc_def.ghi_jlk', 'camel'));
+        static::assertSame('AbcDef.GhiJlk', StringSupport::changeCase('abc_def.ghi_jlk', 'pascal'));
+        static::assertSame('abc-def.ghi-jlk', StringSupport::changeCase('abc_def.ghi_jlk', 'kebab'));
+        static::assertSame('abc_def.ghi_jlk', StringSupport::changeCase('abc_def.ghi_jlk', 'snake'));
 
-        $this->assertSame('abcDef.ghiJlk', StringSupport::changeCase('abc def.ghi jlk', 'camel'));
-        $this->assertSame('AbcDef.GhiJlk', StringSupport::changeCase('abc def.ghi jlk', 'pascal'));
-        $this->assertSame('abc-def.ghi-jlk', StringSupport::changeCase('abc def.ghi jlk', 'kebab'));
-        $this->assertSame('abc_def.ghi_jlk', StringSupport::changeCase('abc def.ghi jlk', 'snake'));
+        static::assertSame('abcDef.ghiJlk', StringSupport::changeCase('abc def.ghi jlk', 'camel'));
+        static::assertSame('AbcDef.GhiJlk', StringSupport::changeCase('abc def.ghi jlk', 'pascal'));
+        static::assertSame('abc-def.ghi-jlk', StringSupport::changeCase('abc def.ghi jlk', 'kebab'));
+        static::assertSame('abc_def.ghi_jlk', StringSupport::changeCase('abc def.ghi jlk', 'snake'));
     }
 }

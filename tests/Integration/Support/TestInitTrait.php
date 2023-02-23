@@ -18,7 +18,7 @@ trait TestInitTrait
      *
      * @return string
      */
-    private function mainCachePath(): string
+    private static function mainCachePath(): string
     {
         return base_path("../../../../tests/workspaces/temp/laravel-auto-reg.php");
     }
@@ -28,7 +28,7 @@ trait TestInitTrait
      *
      * @return string
      */
-    private function metaCachePath(): string
+    private static function metaCachePath(): string
     {
         return base_path("../../../../tests/workspaces/temp/laravel-auto-reg-meta.php");
     }
@@ -57,7 +57,7 @@ trait TestInitTrait
      * @param boolean              $removeExistingCacheFile Should the cache file be removed if it exists?.
      * @return mixed[]
      */
-    private function newDetect(
+    private static function newDetect(
         string $scenario,
         array $replaceConfig = [],
         bool $needMeta = true,
@@ -71,10 +71,10 @@ trait TestInitTrait
         );
 
         if ($removeExistingCacheFile) {
-            $this->removeCacheFiles([$this->mainCachePath(), $this->metaCachePath()]);
+            static::removeCacheFiles([static::mainCachePath(), static::metaCachePath()]);
         }
 
-        $configData = $this->replaceConfigData(
+        $configData = static::replaceConfigData(
             require($workspaceDir . '/config.php'),
             $replaceConfig
         );
@@ -90,8 +90,8 @@ trait TestInitTrait
 
         $cache = new Cache(
             new Filesystem(),
-            $this->mainCachePath(),
-            $this->metaCachePath(),
+            static::mainCachePath(),
+            static::metaCachePath(),
             $needMeta
         );
 
@@ -108,7 +108,7 @@ trait TestInitTrait
      * @param Detect $detect The Detect object for the LaravelAutoRegServiceProvider to use.
      * @return LaravelAutoRegServiceProvider
      */
-    private function runServiceProvider(Detect $detect): LaravelAutoRegServiceProvider
+    private static function runServiceProvider(Detect $detect): LaravelAutoRegServiceProvider
     {
         $sp = new LaravelAutoRegServiceProvider(app());
         $sp->overrideWithThisDetect($detect);
@@ -124,7 +124,7 @@ trait TestInitTrait
      * @param string|array<int, string> $paths The path to the cache file.
      * @return void
      */
-    private function removeCacheFiles($paths): void
+    private static function removeCacheFiles($paths): void
     {
         $paths = (is_array($paths) ? $paths : [$paths]);
         foreach ($paths as $path) {
@@ -141,7 +141,7 @@ trait TestInitTrait
      * @param array<string, mixed> $replaceConfig The replacement data.
      * @return mixed[]
      */
-    private function replaceConfigData(array $configData, array $replaceConfig): array
+    private static function replaceConfigData(array $configData, array $replaceConfig): array
     {
         // reset the arrays, one level up from the given keys
         foreach (Arr::dot($replaceConfig) as $key => $value) {

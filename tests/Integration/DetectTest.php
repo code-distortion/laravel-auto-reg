@@ -16,8 +16,10 @@ class DetectTest extends LaravelTestCase
 {
     use TestInitTrait;
 
+
+
     /** @var mixed[] The resolved data after successfully detecting everything. */
-    private array $allResolved = [
+    private static array $allResolved = [
         'broadcast' => [
             'src/App/MyApp1/Routes/channels.php',
         ],
@@ -64,7 +66,7 @@ class DetectTest extends LaravelTestCase
     ];
 
     /** @var mixed[] The resolved data after successfully detecting everything. */
-    private array $noAppResolved = [
+    private static array $noAppResolved = [
         'broadcast' => [
             'src/App/Routes/channels.php'
         ],
@@ -96,7 +98,7 @@ class DetectTest extends LaravelTestCase
     ];
 
     /** @var mixed[] The resolved data when nothing is detected. */
-    private array $noneResolved = [
+    private static array $noneResolved = [
         'broadcast' => [],
         'command' => [],
         'command-closure' => [],
@@ -119,14 +121,14 @@ class DetectTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_everything_is_detected(): void
+    public static function test_everything_is_detected(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
 
-        $this->assertTrue($detect->resourcesWereDetected());
-        $this->assertSame($this->allResolved, $autoRegDTO->getAllResolved());
+        static::assertTrue($detect->resourcesWereDetected());
+        static::assertSame(static::$allResolved, $autoRegDTO->getAllResolved());
     }
 
     /**
@@ -135,14 +137,14 @@ class DetectTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_no_app_is_detected(): void
+    public static function test_no_app_is_detected(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario_no_app');
+        [$autoRegDTO, $detect] = static::newDetect('scenario_no_app');
 
-        $this->assertTrue($detect->resourcesWereDetected());
-        $this->assertSame($this->noAppResolved, $autoRegDTO->getAllResolved());
+        static::assertTrue($detect->resourcesWereDetected());
+        static::assertSame(static::$noAppResolved, $autoRegDTO->getAllResolved());
     }
 
     /**
@@ -151,17 +153,17 @@ class DetectTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_no_app_is_detected_when_config_doesnt_use_app(): void
+    public static function test_no_app_is_detected_when_config_doesnt_use_app(): void
     {
         $replaceConfig = [];
         $replaceConfig['settings']['configs']['use_app_name'] = false;
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario_no_app', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario_no_app', $replaceConfig);
 
         $match = array_merge(
-            $this->noAppResolved,
+            static::$noAppResolved,
             [
                 'config' => [
                     'test_config2' => 'src/App/Configs/sub_dir1/sub_dir2/test_config2.php',
@@ -170,8 +172,8 @@ class DetectTest extends LaravelTestCase
             ],
         );
 
-        $this->assertTrue($detect->resourcesWereDetected());
-        $this->assertSame($match, $autoRegDTO->getAllResolved());
+        static::assertTrue($detect->resourcesWereDetected());
+        static::assertSame($match, $autoRegDTO->getAllResolved());
     }
 
 
@@ -181,7 +183,7 @@ class DetectTest extends LaravelTestCase
      *
      * @return mixed[]
      */
-    public function configIgnoreDataProvider(): array
+    public static function configIgnoreDataProvider(): array
     {
         return [
             'ignore none' => [
@@ -255,7 +257,7 @@ class DetectTest extends LaravelTestCase
                 'replaceConfig' => [
                     'ignore' => ['/src/App/MyApp1'],
                 ],
-                'expectedReplacements' => $this->noneResolved,
+                'expectedReplacements' => static::$noneResolved,
             ],
         ];
     }
@@ -269,18 +271,18 @@ class DetectTest extends LaravelTestCase
      * @param array<string, mixed> $expectedReplacements The values to replace in the expected output.
      * @return void
      */
-    public function test_config_ignore(array $replaceConfig, array $expectedReplacements): void
+    public static function test_config_ignore(array $replaceConfig, array $expectedReplacements): void
     {
-        $expected = $this->allResolved;
+        $expected = static::$allResolved;
         foreach ($expectedReplacements as $index => $value) {
             $expected[$index] = $value;
         }
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
 
-        $this->assertSame($expected, $autoRegDTO->getAllResolved());
+        static::assertSame($expected, $autoRegDTO->getAllResolved());
     }
 
 
@@ -290,7 +292,7 @@ class DetectTest extends LaravelTestCase
      *
      * @return mixed[]
      */
-    public function disabledTypesDataProvider(): array
+    public static function disabledTypesDataProvider(): array
     {
         return [
             'disable none' => [
@@ -318,10 +320,10 @@ class DetectTest extends LaravelTestCase
      * @param array<string, string> $disabledTypes The types to be disabled via the config.
      * @return void
      */
-    public function test_disabled_types(array $disabledTypes): void
+    public static function test_disabled_types(array $disabledTypes): void
     {
         $replaceConfig = [];
-        $expected = $this->allResolved;
+        $expected = static::$allResolved;
         foreach ($disabledTypes as $typeInConfig => $type) {
             $replaceConfig['enabled'][$typeInConfig] = false;
             $expected[$type] = [];
@@ -329,9 +331,9 @@ class DetectTest extends LaravelTestCase
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
 
-        $this->assertSame($expected, $autoRegDTO->getAllResolved());
+        static::assertSame($expected, $autoRegDTO->getAllResolved());
     }
 
 
@@ -342,24 +344,24 @@ class DetectTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_get_methods(): void
+    public static function test_get_methods(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
 
-        $this->assertSame($this->allResolved['broadcast'], $detect->getBroadcastClosureFiles());
-        $this->assertSame($this->allResolved['command'], $detect->getCommandClasses());
-        $this->assertSame($this->allResolved['command-closure'], $detect->getCommandClosureFiles());
-        $this->assertSame($this->allResolved['config'], $detect->getConfigFiles());
-        $this->assertSame($this->allResolved['livewire'], $detect->getLivewireComponentClasses());
-        $this->assertSame($this->allResolved['migration'], $detect->getMigrationDirectories());
-        $this->assertSame($this->allResolved['route-api'], $detect->getRouteApiFiles());
-        $this->assertSame($this->allResolved['route-web'], $detect->getRouteWebFiles());
-        $this->assertSame($this->allResolved['service-provider'], $detect->getServiceProviderClasses());
-        $this->assertSame($this->allResolved['translation'], $detect->getTranslationDirectories());
-        $this->assertSame($this->allResolved['view-component'], $detect->getViewComponentClasses());
-        $this->assertSame($this->allResolved['view'], $detect->getViewDirectories());
+        static::assertSame(static::$allResolved['broadcast'], $detect->getBroadcastClosureFiles());
+        static::assertSame(static::$allResolved['command'], $detect->getCommandClasses());
+        static::assertSame(static::$allResolved['command-closure'], $detect->getCommandClosureFiles());
+        static::assertSame(static::$allResolved['config'], $detect->getConfigFiles());
+        static::assertSame(static::$allResolved['livewire'], $detect->getLivewireComponentClasses());
+        static::assertSame(static::$allResolved['migration'], $detect->getMigrationDirectories());
+        static::assertSame(static::$allResolved['route-api'], $detect->getRouteApiFiles());
+        static::assertSame(static::$allResolved['route-web'], $detect->getRouteWebFiles());
+        static::assertSame(static::$allResolved['service-provider'], $detect->getServiceProviderClasses());
+        static::assertSame(static::$allResolved['translation'], $detect->getTranslationDirectories());
+        static::assertSame(static::$allResolved['view-component'], $detect->getViewComponentClasses());
+        static::assertSame(static::$allResolved['view'], $detect->getViewDirectories());
     }
 
 
@@ -370,14 +372,14 @@ class DetectTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_middleware_list(): void
+    public static function test_middleware_list(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1');
+        [$autoRegDTO, $detect] = static::newDetect('scenario1');
 
-        $this->assertSame(['api'], $detect->routeApiMiddleware());
-        $this->assertSame(['web'], $detect->routeWebMiddleware());
+        static::assertSame(['api'], $detect->routeApiMiddleware());
+        static::assertSame(['web'], $detect->routeWebMiddleware());
 
 
         // replace the middleware with other values
@@ -385,12 +387,12 @@ class DetectTest extends LaravelTestCase
         $replaceConfig['settings']['routes']['api']['middleware'] = ['abc', 'def'];
         $replaceConfig['settings']['routes']['web']['middleware'] = ['123', '456'];
 
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
 
-        $this->assertSame(['abc', 'def'], $detect->routeApiMiddleware());
-        $this->assertSame(['123', '456'], $detect->routeWebMiddleware());
+        static::assertSame(['abc', 'def'], $detect->routeApiMiddleware());
+        static::assertSame(['123', '456'], $detect->routeWebMiddleware());
     }
 
 
@@ -400,7 +402,7 @@ class DetectTest extends LaravelTestCase
      *
      * @return mixed[]
      */
-    public function shouldRunBroadcastAuthDataProvider(): array
+    public static function shouldRunBroadcastAuthDataProvider(): array
     {
         return [
             'a' => [
@@ -468,13 +470,13 @@ class DetectTest extends LaravelTestCase
      * @param boolean              $expected      The expected outcome.
      * @return void
      */
-    public function test_should_run_broadcast_auth_setting(array $replaceConfig, bool $expected): void
+    public static function test_should_run_broadcast_auth_setting(array $replaceConfig, bool $expected): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
 
-        $this->assertSame($expected, $detect->shouldRegisterBroadcastRoutes());
+        static::assertSame($expected, $detect->shouldRegisterBroadcastRoutes());
     }
 
 
@@ -485,7 +487,7 @@ class DetectTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_that_multiple_view_directories_results_in_one_match(): void
+    public static function test_that_multiple_view_directories_results_in_one_match(): void
     {
         $replaceConfig = [
             'patterns' => [
@@ -498,9 +500,9 @@ class DetectTest extends LaravelTestCase
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
 
-        $this->assertSame(['my-app1' => 'src/App/MyApp1/Resources/Views'], $autoRegDTO->getResolved('view'));
+        static::assertSame(['my-app1' => 'src/App/MyApp1/Resources/Views'], $autoRegDTO->getResolved('view'));
 
 
         // the same - but with the patterns in reverse order
@@ -515,9 +517,9 @@ class DetectTest extends LaravelTestCase
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
 
-        $this->assertSame(['my-app1' => 'src/App/MyApp1/SomeOtherThings/Views'], $autoRegDTO->getResolved('view'));
+        static::assertSame(['my-app1' => 'src/App/MyApp1/SomeOtherThings/Views'], $autoRegDTO->getResolved('view'));
     }
 
 
@@ -528,7 +530,7 @@ class DetectTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_that_the_correct_match_is_picked_when_it_matches_more_than_one_rule(): void
+    public static function test_that_the_correct_match_is_picked_when_it_matches_more_than_one_rule(): void
     {
         // detect when the path matches only one search-pattern
         $replaceConfig = [
@@ -541,10 +543,10 @@ class DetectTest extends LaravelTestCase
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
 
-        $this->assertSame(1, count($autoRegDTO->getAllMeta()['command']));
-        $this->assertSame('my_app1.some_other_things', $autoRegDTO->getAllMeta()['command'][0]['app']);
+        static::assertSame(1, count($autoRegDTO->getAllMeta()['command']));
+        static::assertSame('my_app1.some_other_things', $autoRegDTO->getAllMeta()['command'][0]['app']);
 
 
 
@@ -560,10 +562,10 @@ class DetectTest extends LaravelTestCase
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
 
-        $this->assertSame(1, count($autoRegDTO->getAllMeta()['command']));
-        $this->assertSame('my_app1', $autoRegDTO->getAllMeta()['command'][0]['app']);
+        static::assertSame(1, count($autoRegDTO->getAllMeta()['command']));
+        static::assertSame('my_app1', $autoRegDTO->getAllMeta()['command'][0]['app']);
     }
 
 
@@ -574,7 +576,7 @@ class DetectTest extends LaravelTestCase
      * @test
      * @return void
      */
-    public function test_detection_from_multiple_sources(): void
+    public static function test_detection_from_multiple_sources(): void
     {
         $replaceConfig = [
             'source_dir' => [
@@ -585,15 +587,15 @@ class DetectTest extends LaravelTestCase
 
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', $replaceConfig);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', $replaceConfig);
 
         $apps = collect($autoRegDTO->getAllMeta())
             ->flatten(1)
             ->pluck('source')
             ->unique();
 
-        $this->assertTrue($apps->filter(fn($dir) => $dir == '/src/App')->isNotEmpty());
-        $this->assertTrue($apps->filter(fn($dir) => $dir == '/src/App2')->isNotEmpty());
+        static::assertTrue($apps->filter(fn($dir) => $dir == '/src/App')->isNotEmpty());
+        static::assertTrue($apps->filter(fn($dir) => $dir == '/src/App2')->isNotEmpty());
     }
 
 
@@ -603,7 +605,7 @@ class DetectTest extends LaravelTestCase
      *
      * @return mixed[]
      */
-    public function metaLoadingDataProvider(): array
+    public static function metaLoadingDataProvider(): array
     {
         return [
             'needs meta' => [
@@ -623,16 +625,16 @@ class DetectTest extends LaravelTestCase
      * @param boolean $needMeta Should the meta-data be generated / loaded from cache?.
      * @return void
      */
-    public function test_meta_loading(bool $needMeta): void
+    public static function test_meta_loading(bool $needMeta): void
     {
         /** @var AutoRegDTO $autoRegDTO */
         /** @var Detect $detect */
-        [$autoRegDTO, $detect] = $this->newDetect('scenario1', [], $needMeta);
+        [$autoRegDTO, $detect] = static::newDetect('scenario1', [], $needMeta);
 
         if ($needMeta) {
-            $this->assertNotSame([], $autoRegDTO->getAllMeta()['broadcast']);
+            static::assertNotSame([], $autoRegDTO->getAllMeta()['broadcast']);
         } else {
-            $this->assertSame([], $autoRegDTO->getAllMeta()['broadcast']);
+            static::assertSame([], $autoRegDTO->getAllMeta()['broadcast']);
         }
     }
 }
