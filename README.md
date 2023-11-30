@@ -1,7 +1,7 @@
 # Laravel Auto-Reg
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/code-distortion/laravel-auto-reg.svg?style=flat-square)](https://packagist.org/packages/code-distortion/laravel-auto-reg)
-![PHP Version](https://img.shields.io/badge/PHP-7.4%20to%208.2-blue?style=flat-square)
+![PHP Version](https://img.shields.io/badge/PHP-7.4%20to%208.3-blue?style=flat-square)
 ![Laravel](https://img.shields.io/badge/laravel-8%20to%2010-blue?style=flat-square)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/code-distortion/laravel-auto-reg/run-tests.yml?branch=master&style=flat-square)](https://github.com/code-distortion/laravel-auto-reg/actions)
 [![Buy The World a Tree](https://img.shields.io/badge/treeware-%F0%9F%8C%B3-lightgreen?style=flat-square)](https://plant.treeware.earth/code-distortion/laravel-auto-reg)
@@ -463,7 +463,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ### SemVer
 
-This library uses [SemVer 2.0.0](https://semver.org/) versioning. This means that changes to `X` indicate a breaking change: `0.0.X`, `0.X.y`, `X.y.z`. When this library changes to version 1.0.0, 2.0.0 and so forth it doesn't indicate that it's necessarily a notable release, it simply indicates that the changes were breaking.
+This library uses [SemVer 2.0.0](https://semver.org/) versioning. This means that changes to `X` indicate a breaking change: `0.0.X`, `0.X.y`, `X.y.z`. When this library changes to version 1.0.0, 2.0.0 and so forth, it doesn't indicate that it's necessarily a notable release, it simply indicates that the changes were breaking.
 
 
 
