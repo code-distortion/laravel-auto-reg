@@ -94,7 +94,7 @@ And then update the `source_dir` config value to point to the base of your code.
 
 ## A Laravel Project With a Non-Standard Directory Structure
 
-Here are the steps you could follow to set your Laravel project up with a non-standard directory structure. In this case moving things from `app` into `src/App` and using that as a base to put the rest of your code.
+Here are the steps you could follow to set your Laravel project up with a non-standard directory structure. In this case, moving things from `app` into `src/App`, and using that as a base to put the rest of your code.
 
 
 
