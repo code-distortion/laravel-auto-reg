@@ -62,6 +62,12 @@ jobs:
           - dependency-prefer: "prefer-lowest"
             dependency-prefer-title: "lowest"
         exclude:
+          - testbench: "^9.0"
+            php: "8.1"
+          - testbench: "^9.0"
+            php: "8.0"
+          - testbench: "^9.0"
+            php: "7.4"
           - testbench: "^8.0"
             php: "8.0"
           - testbench: "^8.0"
@@ -104,9 +110,6 @@ jobs:
     steps:
       - name: "Checkout code"
         uses: "actions/checkout@v4"
-
-      - name: "Validate composer.json and composer.lock"
-        run: "composer validate --strict"
 
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"

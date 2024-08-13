@@ -95,6 +95,8 @@ class LaravelAutoRegServiceProvider extends ServiceProvider
      *
      * (This is only used in testing).
      *
+     * @internal
+     *
      * @param Detect $detect The Detect object to use.
      * @return void
      */
@@ -427,6 +429,7 @@ class LaravelAutoRegServiceProvider extends ServiceProvider
 //            $this->loadViewComponentsAs($prefix, $fqcns);
 //        }
         foreach ($this->detect->getViewComponentClasses() as [$prefix, $namespace]) {
+            $namespace = ltrim($namespace, '\\');
             Blade::componentNamespace($namespace, $prefix);
         }
         $this->monitor->incRegCount($type, count($this->detect->getViewComponentClasses()));
