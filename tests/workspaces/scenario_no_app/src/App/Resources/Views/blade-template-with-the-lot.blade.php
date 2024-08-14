@@ -11,4 +11,3 @@ BLADE TEMPLATE WITH THE LOT
 
 <livewire:my-app1::livewire-component1 />
 <livewire:my-app1::sub-dir1.sub-dir2.livewire-component2 />
-

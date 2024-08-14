@@ -22,7 +22,7 @@ class LivewireComponentResolver extends ResolverAbstract
     /** @var array<int, string|null> The classes that files must match (when not empty. null means "no class"). */
     protected array $matchClasses = [Component::class];
 
-    /** @var boolean Is this allowd to match files that aren't in an app?. */
+    /** @var boolean Is this allowed to match files that aren't in an app?. */
     protected bool $allowNullApp = false;
 
 
