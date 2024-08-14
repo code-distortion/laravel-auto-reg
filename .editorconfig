@@ -5,44 +5,26 @@ root = true
 
 [*]
 charset = utf-8
+end_of_line = lf
 indent_size = 4
 indent_style = space
-end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.js]
 indent_size = 2
 
-[*.json]
-indent_size = 2
-
-[*.json.dist]
-indent_size = 2
-
-[*.json5]
-indent_size = 2
-
-[*.json5.dist]
+[*.{json,json.dist}]
 indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
 
-[*.neon]
+[*.{neon,neon.dist}]
 indent_size = 2
 
-[*.neon.dist]
+[*.{xml,xml.dist}]
 indent_size = 2
 
-[*.xml]
-indent_size = 2
-
-[*.xml.dist]
-indent_size = 2
-
-[*.yml]
-indent_size = 2
-
-[*.yml.dist]
+[*.{yml,yml.dist}]
 indent_size = 2
