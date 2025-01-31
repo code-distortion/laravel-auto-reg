@@ -8,6 +8,7 @@ use CodeDistortion\LaravelAutoReg\Support\Monitor;
 use CodeDistortion\LaravelAutoReg\Tests\Integration\Support\TestInitTrait;
 use CodeDistortion\LaravelAutoReg\Tests\LaravelTestCase;
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test the LaravelAutoRegServiceProvider class.
@@ -24,8 +25,10 @@ class LaravelAutoRegServiceProviderTest extends LaravelTestCase
      * Test that the LaravelAutoRegServiceProvider registers everything it's supposed to.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_the_service_provider_registers_everything(): void
     {
         [$autoRegDTO, $detect] = static::newDetect('scenario1');

@@ -4,6 +4,7 @@ namespace CodeDistortion\LaravelAutoReg\Tests\Unit;
 
 use CodeDistortion\LaravelAutoReg\Support\StringSupport;
 use CodeDistortion\LaravelAutoReg\Tests\PHPUnitTestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test the StringSupport class.
@@ -16,8 +17,10 @@ class StringSupportTest extends PHPUnitTestCase
      * Test the case of strings are converted properly.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_case_conversion(): void
     {
         static::assertSame('abcDef.ghiJlk', StringSupport::changeCase('abcDef.ghiJlk', 'camel'));

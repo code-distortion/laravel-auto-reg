@@ -8,6 +8,8 @@ use CodeDistortion\LaravelAutoReg\Support\Settings;
 use CodeDistortion\LaravelAutoReg\Tests\Integration\Support\TestInitTrait;
 use CodeDistortion\LaravelAutoReg\Tests\LaravelTestCase;
 use Illuminate\Support\Facades\Artisan;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * Test the Laravel Auto-Reg commands.
@@ -24,8 +26,10 @@ class CommandsTest extends LaravelTestCase
      * Test that the auto-reg:list command runs properly.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_command_list(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -77,8 +81,10 @@ Source: /src/App
      * Test that the auto-reg:list command runs properly - when there's no resources to register.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_command_list_when_empty(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -100,8 +106,10 @@ Source: /src/App
      * Test that the auto-reg:cache command runs properly.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_command_cache(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -128,8 +136,10 @@ Auto-Reg cached successfully!
      * Test that the auto-reg:cache command runs properly - when there's no resources to register.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_command_cache_when_empty(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -157,8 +167,10 @@ Auto-Reg cached successfully!
      * Test that the auto-reg:clear command runs properly.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_command_clear(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -187,8 +199,10 @@ Auto-Reg cached successfully!
      * Test that the auto-reg:stats command runs properly.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_command_stats(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -243,10 +257,13 @@ Laravel Auto-Reg cache status: NOT CACHED
      *
      * @test
      * @dataProvider enabledTypesDataProvider
+     *
      * @param string $name       The resource to enable.
      * @param string $configName The name of the resource in the config.
      * @return void
      */
+    #[Test]
+    #[DataProvider('enabledTypesDataProvider')]
     public static function test_that_resources_are_disabled(string $name, string $configName): void
     {
         $replaceConfig = [

@@ -1,7 +1,7 @@
 # Laravel Auto-Reg
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/code-distortion/laravel-auto-reg.svg?style=flat-square)](https://packagist.org/packages/code-distortion/laravel-auto-reg)
-![PHP Version](https://img.shields.io/badge/PHP-7.4%20to%208.3-blue?style=flat-square)
+![PHP Version](https://img.shields.io/badge/PHP-7.4%20to%208.4-blue?style=flat-square)
 ![Laravel](https://img.shields.io/badge/laravel-8%20to%2011-blue?style=flat-square)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/code-distortion/laravel-auto-reg/run-tests.yml?branch=master&style=flat-square)](https://github.com/code-distortion/laravel-auto-reg/actions)
 [![Buy The World a Tree](https://img.shields.io/badge/treeware-%F0%9F%8C%B3-lightgreen?style=flat-square)](https://plant.treeware.earth/code-distortion/laravel-auto-reg)
@@ -447,11 +447,11 @@ This lists how long the registation steps take and how many things are registere
 
 
 
-## Testing
+## Testing This Package
 
-``` bash
-composer test
-```
+- Clone this package: `git clone https://github.com/code-distortion/laravel-auto-reg.git .`
+- Run `composer install` to install dependencies
+- Run the tests: `composer test`
 
 
 

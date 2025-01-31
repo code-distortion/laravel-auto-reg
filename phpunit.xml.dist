@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
   backupGlobals="true"
-  backupStaticProperties="false"
+  backupStaticProperties="true"
   beStrictAboutChangesToGlobalState="false"
   beStrictAboutOutputDuringTests="true"
   beStrictAboutTestsThatDoNotTestAnything="true"
@@ -21,13 +21,14 @@
   displayDetailsOnSkippedTests="true"
   enforceTimeLimit="false"
   failOnDeprecation="true"
-  failOnIncomplete="false"
+  failOnIncomplete="true"
   failOnEmptyTestSuite="true"
   failOnNotice="true"
   failOnRisky="true"
   failOnSkipped="true"
   failOnWarning="true"
   processIsolation="false"
+  requireCoverageMetadata="false"
   stopOnDefect="true"
   stopOnDeprecation="true"
   stopOnError="true"
@@ -40,20 +41,20 @@
 >
   <testsuites>
     <testsuite name="Unit">
-      <directory suffix="Test.php">./tests/Unit</directory>
+      <directory suffix="Test.php">./tests/Unit/</directory>
     </testsuite>
     <testsuite name="Integration">
-      <directory suffix="Test.php">./tests/Integration</directory>
+      <directory suffix="Test.php">./tests/Integration/</directory>
     </testsuite>
   </testsuites>
   <coverage>
     <report>
-      <html outputDirectory="phpunit/coverage"/>
+      <html outputDirectory="phpunit/coverage/"/>
     </report>
   </coverage>
   <source>
     <include>
-      <directory suffix=".php">src/</directory>
+      <directory suffix=".php">./src/</directory>
     </include>
   </source>
 </phpunit>

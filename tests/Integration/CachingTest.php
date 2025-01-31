@@ -9,6 +9,8 @@ use CodeDistortion\LaravelAutoReg\Tests\Integration\Support\TestInitTrait;
 use CodeDistortion\LaravelAutoReg\Tests\LaravelTestCase;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Test that caching works.
@@ -25,8 +27,10 @@ class CachingTest extends LaravelTestCase
      * Test that the cache is written to and loaded from.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_that_cache_is_created(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -116,12 +120,15 @@ class CachingTest extends LaravelTestCase
      *
      * @test
      * @dataProvider cacheFileReplacementDataProvider
+     *
      * @param string $getPathMethod The cache file to change.
      * @param string $search        The content to replace.
      * @param string $replace       The content to replace with.
      * @return void
      * @throws FileNotFoundException Thrown when a file cannot be read when checking if it has content.
      */
+    #[Test]
+    #[DataProvider("cacheFileReplacementDataProvider")]
     public static function test_that_cache_is_fixed_when_corrupt(
         string $getPathMethod,
         string $search,
@@ -201,6 +208,7 @@ class CachingTest extends LaravelTestCase
      *
      * @test
      * @dataProvider cacheFileRemovalDataProvider
+     *
      * @param array<int, string> $removePathMethods  The file/s to remove.
      * @param boolean            $needMeta           Should the meta-data be generated / loaded from cache?.
      * @param boolean            $wasLoadedFromCache Should the cache have been successfully loaded from the second
@@ -208,6 +216,8 @@ class CachingTest extends LaravelTestCase
      * @param boolean            $willRebuildCache   Will the cache be rebuilt afterwards?.
      * @return void
      */
+    #[Test]
+    #[DataProvider("cacheFileRemovalDataProvider")]
     public static function test_that_cache_fixed_when_missing_files(
         array $removePathMethods,
         bool $needMeta,

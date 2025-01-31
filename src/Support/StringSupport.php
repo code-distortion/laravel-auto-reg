@@ -22,7 +22,7 @@ class StringSupport
             ->replace(['_', '-'], ' ')
             ->explode('.')
             ->map(
-                fn($value) => mb_strtolower($caseType) == 'pascal'
+                fn($value) => mb_strtolower($caseType) === 'pascal'
                     ? (string) Str::of($value)->camel()->ucfirst()
                     : (string) Str::$caseType($value)
             )

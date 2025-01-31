@@ -6,6 +6,9 @@ use CodeDistortion\LaravelAutoReg\Core\Detect;
 use CodeDistortion\LaravelAutoReg\Support\AutoRegDTO;
 use CodeDistortion\LaravelAutoReg\Tests\Integration\Support\TestInitTrait;
 use CodeDistortion\LaravelAutoReg\Tests\LaravelTestCase;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\DataProvider;
+
 
 /**
  * Test the Detect class.
@@ -119,8 +122,10 @@ class DetectTest extends LaravelTestCase
      * Test that everything is detected properly.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_everything_is_detected(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -135,8 +140,10 @@ class DetectTest extends LaravelTestCase
      * Test that everything is detected properly when there's no app.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_no_app_is_detected(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -151,8 +158,10 @@ class DetectTest extends LaravelTestCase
      * Test that everything is detected properly when there's no app.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_no_app_is_detected_when_config_doesnt_use_app(): void
     {
         $replaceConfig = [];
@@ -267,10 +276,13 @@ class DetectTest extends LaravelTestCase
      *
      * @test
      * @dataProvider configIgnoreDataProvider
+     *
      * @param array<string, mixed> $replaceConfig        The config values to replace.
      * @param array<string, mixed> $expectedReplacements The values to replace in the expected output.
      * @return void
      */
+    #[Test]
+    #[DataProvider("configIgnoreDataProvider")]
     public static function test_config_ignore(array $replaceConfig, array $expectedReplacements): void
     {
         $expected = static::$allResolved;
@@ -317,9 +329,12 @@ class DetectTest extends LaravelTestCase
      *
      * @test
      * @dataProvider disabledTypesDataProvider
+     *
      * @param array<string, string> $disabledTypes The types to be disabled via the config.
      * @return void
      */
+    #[Test]
+    #[DataProvider("disabledTypesDataProvider")]
     public static function test_disabled_types(array $disabledTypes): void
     {
         $replaceConfig = [];
@@ -342,8 +357,10 @@ class DetectTest extends LaravelTestCase
      * Test that the various "get" methods in the Detect class give the correct responses.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_get_methods(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -370,8 +387,10 @@ class DetectTest extends LaravelTestCase
      * Test that the correct middleware lists are returned.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_middleware_list(): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -466,10 +485,13 @@ class DetectTest extends LaravelTestCase
      *
      * @test
      * @dataProvider shouldRunBroadcastAuthDataProvider
+     *
      * @param array<string, mixed> $replaceConfig The config values to replace.
      * @param boolean              $expected      The expected outcome.
      * @return void
      */
+    #[Test]
+    #[DataProvider("shouldRunBroadcastAuthDataProvider")]
     public static function test_should_run_broadcast_auth_setting(array $replaceConfig, bool $expected): void
     {
         /** @var AutoRegDTO $autoRegDTO */
@@ -485,8 +507,10 @@ class DetectTest extends LaravelTestCase
      * Test that the first match found is used (based on the order of the search-patterns) when only one is allowed.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_that_multiple_view_directories_results_in_one_match(): void
     {
         $replaceConfig = [
@@ -528,8 +552,10 @@ class DetectTest extends LaravelTestCase
      * Test that Detect acts appropriately when no resource files are there to detect.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_that_the_correct_match_is_picked_when_it_matches_more_than_one_rule(): void
     {
         // detect when the path matches only one search-pattern
@@ -574,8 +600,10 @@ class DetectTest extends LaravelTestCase
      * Test that Detect detects files from more than one source.
      *
      * @test
+     *
      * @return void
      */
+    #[Test]
     public static function test_detection_from_multiple_sources(): void
     {
         $replaceConfig = [
@@ -622,9 +650,12 @@ class DetectTest extends LaravelTestCase
      *
      * @test
      * @dataProvider metaLoadingDataProvider
+     *
      * @param boolean $needMeta Should the meta-data be generated / loaded from cache?.
      * @return void
      */
+    #[Test]
+    #[DataProvider("metaLoadingDataProvider")]
     public static function test_meta_loading(bool $needMeta): void
     {
         /** @var AutoRegDTO $autoRegDTO */

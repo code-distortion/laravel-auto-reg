@@ -6,35 +6,37 @@ on:
   schedule:
     - cron: "0 0 * * 0"
 
-permissions:
-  contents: read
-
 jobs:
 
   all_tests:
 
     name: "PHP${{ matrix.php }} TB${{ matrix.testbench }} ${{ matrix.os-title }} LW${{ matrix.livewire }} ${{ matrix.dependency-prefer-title }}"
     runs-on: "${{ matrix.os }}"
+    permissions:
+      contents: "read"
     strategy:
       fail-fast: true
       matrix:
         os: [ "ubuntu-latest", "macos-latest", "windows-latest" ]
-        php: [ "8.3", "8.2", "8.1", "8.0", "7.4" ]
+        php: [ "8.4", "8.3", "8.2", "8.1", "8.0", "7.4" ]
         testbench: [ "^9.0", "^8.0", "^7.0", "^6.26", "^6.0" ]
         livewire: [ "^3.0", "^2.0", "^1.0" ]
         dependency-prefer: [ "prefer-stable", "prefer-lowest" ]
         include:
+          - php: "8.4"
+            phpunit: "^9.3 | ^10.1 | ^11.0"
+            phpunit-config-file: "phpunit.github-actions.xml.dist"
           - php: "8.3"
-            phpunit: "^10.1.0"
+            phpunit: "^9.3 | ^10.1 | ^11.0"
             phpunit-config-file: "phpunit.github-actions.xml.dist"
           - php: "8.2"
-            phpunit: "^10.1.0"
+            phpunit: "^9.3 | ^10.1 | ^11.0"
             phpunit-config-file: "phpunit.github-actions.xml.dist"
           - php: "8.1"
-            phpunit: "^10.1.0"
+            phpunit: "^9.3 | ^10.1 | ^11.0"
             phpunit-config-file: "phpunit.github-actions.xml.dist"
           - php: "8.0"
-            phpunit: "^10.1.0"
+            phpunit: "^9.3 | ^10.1 | ^11.0"
             phpunit-config-file: "phpunit.github-actions.xml.dist"
           - php: "7.4"
             phpunit: "^9.3"
@@ -74,15 +76,17 @@ jobs:
             php: "7.4"
           - testbench: "^7.0"
             php: "7.4"
-          - testbench: "^6.26" # Laravel 8 for higher versions of php
+          - testbench: "^6.26" # Laravel 8 for higher versions of PHP
             php: "8.0"
-          - testbench: "^6.26" # Laravel 8 for higher versions of php
+          - testbench: "^6.26" # Laravel 8 for higher versions of PHP
             php: "7.4"
-          - testbench: "^6.0" # Laravel 8 for lower versions of php
+          - testbench: "^6.0" # Laravel 8 for lower versions of PHP
+            php: "8.4"
+          - testbench: "^6.0" # Laravel 8 for lower versions of PHP
             php: "8.3"
-          - testbench: "^6.0" # Laravel 8 for lower versions of php
+          - testbench: "^6.0" # Laravel 8 for lower versions of PHP
             php: "8.2"
-          - testbench: "^6.0" # Laravel 8 for lower versions of php
+          - testbench: "^6.0" # Laravel 8 for lower versions of PHP
             php: "8.1"
 
           - livewire: "^3.0"
@@ -155,4 +159,4 @@ jobs:
             composer update --${{ matrix.dependency-prefer }} --prefer-dist --no-interaction --optimize-autoloader --no-progress
 
       - name: "Execute tests"
-        run: vendor/bin/phpunit --configuration=${{ matrix.phpunit-config-file }} --no-coverage --stop-on-error --stop-on-failure
+        run: vendor/bin/phpunit "--configuration=${{ matrix.phpunit-config-file }}" --no-coverage --stop-on-error --stop-on-failure
