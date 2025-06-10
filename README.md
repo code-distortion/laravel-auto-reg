@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/code-distortion/laravel-auto-reg.svg?style=flat-square)](https://packagist.org/packages/code-distortion/laravel-auto-reg)
 ![PHP Version](https://img.shields.io/badge/PHP-7.4%20to%208.4-blue?style=flat-square)
-![Laravel](https://img.shields.io/badge/laravel-8%20to%2011-blue?style=flat-square)
+![Laravel](https://img.shields.io/badge/laravel-8%20to%2012-blue?style=flat-square)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/code-distortion/laravel-auto-reg/run-tests.yml?branch=master&style=flat-square)](https://github.com/code-distortion/laravel-auto-reg/actions)
 [![Buy The World a Tree](https://img.shields.io/badge/treeware-%F0%9F%8C%B3-lightgreen?style=flat-square)](https://plant.treeware.earth/code-distortion/laravel-auto-reg)
 [![Contributor Covenant](https://img.shields.io/badge/contributor%20covenant-v2.1%20adopted-ff69b4.svg?style=flat-square)](.github/CODE_OF_CONDUCT.md)
@@ -62,7 +62,7 @@ The aim of Laravel Auto-Reg is to allow you to structure your Laravel project di
 
 Auto-Reg is also a great way to [oversee your resources](#console-commands).
 
-> Laravel Auto-Reg was inspired by the [Laravel Beyond Crud book](https://laravel-beyond-crud.com/) by [Brent Roose](https://twitter.com/brendt_gd) from [Spatie](https://spatie.be/) which describes a Laravel codebase that is broken into *application* and *domain* layers. The "apps" are kind of mini-Laravel applications but are intended to only contain scaffolding code like *Controllers*, *Middleware*, *Requests*, and *Commands*, whose sole purpose is to be the go-between between requests (or commands) and domain business-logic which is stored in the "domains". 
+> Laravel Auto-Reg was inspired by the [Laravel Beyond Crud book](https://laravel-beyond-crud.com/) by [Brent Roose](https://twitter.com/brendt_gd) from [Spatie](https://spatie.be/) which describes a Laravel codebase that is broken into *application* and *domain* layers. The "apps" are kind of mini-Laravel applications but are intended to only contain scaffolding code like *Controllers*, *Middleware*, *Requests*, and *Commands*, whose sole purpose is to be the go-between between requests (or commands) and domain business-logic which is stored in the "domains".
 
 > Further inspiration came from [Laravel Modules](https://github.com/nWidart/laravel-modules) by [Nicolas Widart](https://twitter.com/NicolasWidart) which introduces *modules* and are also like mini Laravel projects. The difference being that a "module" includes *everything* you'd normally find in a Laravel `app` directory - **both** the scaffolding "app" code mentioned above but the business "domain" logic too.
 
@@ -171,9 +171,9 @@ Auto-Reg will load your Application Service Providers for you, so you'll need to
 // config/app.php
 
     'providers' => [
-    
+
         // …
-    
+
         /*
          * Application Service Providers...
          */
@@ -282,7 +282,7 @@ Config files are added to Laravel's config, with the addition of the *app's* nam
 
 The `src/App/Home/Configs/blog.php` file's values would be available to you using `config('home.blog.my_value')`.
 
-> You can turn the app-prefix off and instead access values using `config('blog.my_value')`  
+> You can turn the app-prefix off and instead access values using `config('blog.my_value')`
 
 
 

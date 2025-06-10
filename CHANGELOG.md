@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 
 
+## [0.1.14] - 2025-06-10
+
+### Added
+- Added support for Laravel 12
+
+
+
 ## [0.1.13] - 2025-01-31
 
 ### Added
