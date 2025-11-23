@@ -18,11 +18,16 @@ jobs:
       fail-fast: true
       matrix:
         os: [ "ubuntu-latest", "macos-latest", "windows-latest" ]
-        php: [ "8.4", "8.3", "8.2", "8.1", "8.0", "7.4" ]
+        php: [ "8.5", "8.4", "8.3", "8.2", "8.1", "8.0", "7.4" ]
         testbench: [ "^10.0", "^9.0", "^8.0", "^7.0", "^6.26", "^6.0" ]
         livewire: [ "^3.0", "^2.0", "^1.0" ]
         dependency-prefer: [ "prefer-stable", "prefer-lowest" ]
         include:
+          - php: "8.5"
+            phpunit: "^9.3 | ^10.1 | ^11.0 | ^12.0"
+            phpunit-config-file: "phpunit.github-actions.xml.dist"
+            # less than nesbot/carbon:^2.62.1 causes error in PHP 8.2 and 8.3: "TypeError: Carbon\Carbon::setLastErrors(): Argument #1 ($lastErrors) must be of type array, false given, called in /home/runner/work/laravel-auto-reg/laravel-auto-reg/vendor/nesbot/carbon/src/Carbon/Traits/Creator.php on line 89"
+            carbon: ">= 2.62.1"
           - php: "8.4"
             phpunit: "^9.3 | ^10.1 | ^11.0 | ^12.0"
             phpunit-config-file: "phpunit.github-actions.xml.dist"
@@ -98,6 +103,8 @@ jobs:
           - testbench: "^6.26" # Laravel 8 for higher versions of PHP
             php: "7.4"
           - testbench: "^6.0" # Laravel 8 for lower versions of PHP
+            php: "8.5"
+          - testbench: "^6.0" # Laravel 8 for lower versions of PHP
             php: "8.4"
           - testbench: "^6.0" # Laravel 8 for lower versions of PHP
             php: "8.3"
@@ -134,7 +141,7 @@ jobs:
 
     steps:
       - name: "Checkout code"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
 
       - name: "Setup PHP"
         uses: "shivammathur/setup-php@v2"
@@ -156,11 +163,22 @@ jobs:
         run: |
           echo "composer_cache_dir=$(composer config cache-files-dir)">> "$GITHUB_OUTPUT"
 
+      - name: "Compute composer.json hash"
+        id: "composer-hash"
+        shell: "bash" # make sure this step works on Windows - bash syntax is used
+        run: |
+          # GitHub's hashFiles() tool has regression bug on MacOS - https://github.com/actions/runner-images/issues/13341
+          # if replacing, fix the "$" and the "{ {" - the GitHub running picks it up and runs it before the step is run
+          #COMPOSER_HASH="${ { hashFiles('composer.json') }}"
+          # Use md5_file() instead
+          COMPOSER_HASH="$(php -r 'echo md5_file("composer.json");')"
+          echo "value=$COMPOSER_HASH" >> "$GITHUB_OUTPUT"
+
       - name: "Cache composer's cache directory"
         uses: "actions/cache@v4"
         with:
           path: "${{ steps.composer-cache.outputs.composer_cache_dir }}"
-          key: "[${{ matrix.os }}][php-${{ matrix.php }}][testbench-${{ matrix.testbench }}][${{ matrix.livewire }}][${{ matrix.dependency-prefer }}][composer.json-${{ hashFiles('composer.json') }}]"
+          key: "[${{ matrix.os }}][php-${{ matrix.php }}][testbench-${{ matrix.testbench }}][livewire-${{ matrix.livewire }}][${{ matrix.dependency-prefer }}][composer.json-${{ steps.composer-hash.outputs.value }}]"
 
       - name: "Install dependencies"
         uses: "nick-fields/retry@v3"
